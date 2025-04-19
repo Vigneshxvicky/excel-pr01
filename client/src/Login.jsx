@@ -10,6 +10,10 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if(!email || !password) {
+      alert("All fields are required!");
+      return;
+    }   
     axios
       .post("http://localhost:5000/login", { email, password })
       .then((result) => {
@@ -55,16 +59,16 @@ const Login = () => {
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
-          <button type="submit" className="btn btn-success w-100 rounded-0">
-            Register
+          <button type="submit" className="btn btn-success w-100 rounded-2">
+            Login
           </button>
-          <p>Already have an Account</p>
+          <p className="pt-2">Don't have an Account</p>
           <Link
-            to="/login"
+            to="/"
             type="submit"
             className="btn btn-default border w-100 bg-light rounded-0 text-decoration-none"
           >
-            Login
+            Register
           </Link>
         </form>
       </div>

@@ -26,6 +26,18 @@ app.post('/login', (req, res) => {
     }
     )
 })
+app.post('/check-email', (req, res) => {
+    const { email } = req.body;
+
+    Employee.findOne({ email: email })
+        .then(existingUser => {
+            if (existingUser) {
+                return res.status(200).json({ exists: true });
+            }
+            return res.status(200).json({ exists: false });
+        })
+        .catch(err => res.status(500).json({ message: "Error checking email", error: err }));
+});
 
 app.post('/register', (req, res) => {
     Employee.create(req.body)

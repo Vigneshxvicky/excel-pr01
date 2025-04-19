@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import Header from "./component/Header";
 
 const Login = () => {
   
@@ -13,7 +14,14 @@ const Login = () => {
     if(!email || !password) {
       alert("All fields are required!");
       return;
-    }   
+    }
+    
+    const gmailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+  if (!gmailRegex.test(email)) {
+    alert("Please enter a valid Gmail address!");
+    return;
+  }
+
     axios
       .post("http://localhost:5000/login", { email, password })
       .then((result) => {
@@ -29,6 +37,8 @@ const Login = () => {
   };
 
   return (
+    <>
+    <Header/>   
     <div className="d-flex justify-content-center align-items-center bg-secondary vh-100">
       <div className="bg-white p-3 rounded w-25">
         <h2>Login</h2>
@@ -73,6 +83,7 @@ const Login = () => {
         </form>
       </div>
     </div>
+    </>
   );
 };
 
